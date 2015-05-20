@@ -11,28 +11,35 @@ package demineur.model;
  */
 public class Case {
     private Case[] voisines;
+    int x;
+    int y;
     private int etat;
     private int contenu;
 
-    public Case(Case[] voisines) {
+    public Case(int j, int k, Case[] voisines){
+        contenu=0;
         etat = 0;
-        this.voisines = voisines;
-        
+        x=j;
+        y=k;
+        this.voisines=voisines;
+        for(int i = 0; i<8;i++){
+            if(voisines[i].bombe()){
+                contenu++;
+            }
+        }
     }
     
-    public Case(int contenu) {
-        this.contenu = contenu;
+    public Case(int x, int y, int bombe){
         etat = 0;
+        contenu = bombe;
     }
+
     
-    
+    public void setEtat(int etat){
+        this.etat=etat;
+    }
     
     public boolean bombe(){
-        if(contenu == 9){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return contenu == 9;
     }
 }
