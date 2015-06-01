@@ -5,7 +5,7 @@
  */
 package demineur.model;
 
-import java.util.ArrayList;
+
 import java.util.Observable;
 import java.util.Random;
 
@@ -18,26 +18,29 @@ public class GameBoard extends Observable{
     private final int tailleX;
     private final int tailleY;
     private int minesRestantes;
+    private boolean jeu;
 
     public GameBoard(int tailleX, int tailleY, int minesRestantes) {
         this.tailleX = tailleX;
         this.tailleY = tailleY;
         this.minesRestantes = minesRestantes;
         this.Grille = new Case[tailleX][tailleY];
-        
+        jeu = true;
+        System.out.println("LOL");
         Random rand;
         int alea;
         for(int i=0;i<minesRestantes;i++){
             do{
-                rand = new Random(tailleX*tailleY);
+                rand = new Random();
                 alea = rand.nextInt(tailleX*tailleY);
+                System.out.println("CACA");
             }while(this.Grille[alea%tailleX][alea/tailleX] != null);
             Grille[alea%tailleX][alea/tailleX] = new Case(alea%tailleX,alea/tailleX,9);
         }
         
         for(int j=0;j<tailleX;j++){
             for(int k=0;k<tailleY;k++){
-                if(this.Grille[j][k] != null && !this.Grille[j][k].bombe()){
+                if(this.Grille[j][k] == null) {
                     Grille[j][k] = new Case(j,k,compteMine(j,k));
                 }
             }
@@ -57,11 +60,24 @@ public class GameBoard extends Observable{
         int compteur = 0;
         Case Cases[] = voisines(x,y);
         for(Case C : Cases){
-            if(C.bombe()){
+            if(C != null && C.bombe()){
                 compteur ++;
             }
         }
         return compteur;
+    }
+    
+    public void reveleCase(int x, int y){
+        if(Grille[x][y].reveleCase() == 0){//s'il n'y a pas de bombe
+            for(Case C : voisines(x, y)){
+                reveleCase(C.getX(), C.getY());
+            }
+        }
+        else{
+            if(Grille[x][y].reveleCase() == 9){
+                jeu = false;
+            }
+        }
     }
     
     public final Case[] voisines(int x, int y){
@@ -86,6 +102,7 @@ public class GameBoard extends Observable{
         String res = "";
         for(int i = 0; i<this.tailleX;i++){
             for(int j = 0; j<this.tailleY;j++){
+                System.out.println(i +" "+j);
                 res = res + this.Grille[i][j].toString();
             }
             res = res + "\n";
