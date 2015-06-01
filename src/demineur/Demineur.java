@@ -1,14 +1,16 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package demineur;
 
+
 import demineur.view.ChessBoardWithColumnsAndRows;
 import demineur.view.FenetrePrincipale;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+
 
 /**
  *
@@ -20,6 +22,7 @@ public class Demineur {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         // TODO code application logic here
         
         Runnable r = new Runnable() {
@@ -40,8 +43,10 @@ public class Demineur {
                 // ensures the minimum size is enforced.
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
+SwingUtilities.invokeLater(r);
+        GameBoard Plateau = new GameBoard(10,10,10);
             }
         };
-        SwingUtilities.invokeLater(r);
+        
     }
 }
