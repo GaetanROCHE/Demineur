@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,10 +6,6 @@
 package demineur.model;
 
 
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
->>>>>>> origin/master
 import java.util.Observable;
 import java.util.Random;
 
@@ -18,8 +14,6 @@ import java.util.Random;
  * @author Gaëtan
  */
 
-public class GameBoard {
-    private Case[][] Grille;
 
 public class GameBoard extends Observable{
     private final Case[][] Grille;
@@ -64,7 +58,7 @@ public class GameBoard extends Observable{
     }
     
 
-    public Case[] voisines(int x, int y){
+
     public void poseDrapeau(int x,int y){
         minesRestantes --;
         Grille[x][y].reveleCase();

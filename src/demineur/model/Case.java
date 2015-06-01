@@ -1,4 +1,4 @@
-﻿/*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -13,6 +13,8 @@ public class Case {
     private Case[] voisines;
     private int etat;
     private int contenu;
+    private int x;
+    private int y;
 
     public Case(Case[] voisines) {
         etat = 0;
@@ -23,11 +25,8 @@ public class Case {
     public Case(int contenu) {
         this.contenu = contenu;
         etat = 0;
+    }
 
-    int x;
-    int y;
-    private int etat;
-    private int contenu;
 
     public Case(int j, int k, int contenue){
         contenu=0;
