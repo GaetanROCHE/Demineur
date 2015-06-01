@@ -23,15 +23,22 @@ public class Case {
         y=k;
     }
     
-    public boolean reveleCase(){
+    public int reveleCase(){
         etat = 1;
-        return !(contenu == 9);
+        return contenu;
     }
     
     public void marqueCase(){
         etat = 2;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
     
     public void setEtat(int etat){
         this.etat=etat;
@@ -39,5 +46,10 @@ public class Case {
     
     public boolean bombe(){
         return contenu == 9;
+    }
+    
+    @Override
+    public String toString(){
+        return "|"+this.contenu +"|";
     }
 }
