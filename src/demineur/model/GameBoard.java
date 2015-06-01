@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +6,10 @@
 package demineur.model;
 
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+>>>>>>> origin/master
 import java.util.Observable;
 import java.util.Random;
 
@@ -13,8 +17,13 @@ import java.util.Random;
  *
  * @author Gaëtan
  */
+
+public class GameBoard {
+    private Case[][] Grille;
+
 public class GameBoard extends Observable{
     private final Case[][] Grille;
+
     private final int tailleX;
     private final int tailleY;
     private int minesRestantes;
@@ -32,16 +41,19 @@ public class GameBoard extends Observable{
         for(int i=0;i<minesRestantes;i++){
             do{
                 rand = new Random();
+
                 alea = rand.nextInt(tailleX*tailleY);
                 System.out.println("CACA");
             }while(this.Grille[alea%tailleX][alea/tailleX] != null);
             Grille[alea%tailleX][alea/tailleX] = new Case(alea%tailleX,alea/tailleX,9);
         }
         
+        
         for(int j=0;j<tailleX;j++){
             for(int k=0;k<tailleY;k++){
                 if(this.Grille[j][k] == null) {
                     Grille[j][k] = new Case(j,k,compteMine(j,k));
+
                 }
             }
         }
@@ -51,6 +63,8 @@ public class GameBoard extends Observable{
         return this.Grille[x][y].bombe();
     }
     
+
+    public Case[] voisines(int x, int y){
     public void poseDrapeau(int x,int y){
         minesRestantes --;
         Grille[x][y].reveleCase();
