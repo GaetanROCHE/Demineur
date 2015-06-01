@@ -5,6 +5,8 @@
  */
 package demineur;
 
+import demineur.model.GameBoard;
+
 /**
  *
  * @author Gaëtan
@@ -15,7 +17,7 @@ public class Demineur {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        GameBoard Plateau = new GameBoard(10,10,10);
     }
     
 }
