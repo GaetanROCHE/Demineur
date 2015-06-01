@@ -5,14 +5,13 @@
  */
 package demineur.model;
 
-import java.util.Observable;
 import java.util.Random;
 
 /**
  *
  * @author Gaëtan
  */
-public class GameBoard extends Observable{
+public class GameBoard {
     private Case[][] Grille;
     private final int tailleX;
     private final int tailleY;
@@ -30,13 +29,14 @@ public class GameBoard extends Observable{
                 rand = new Random(tailleX*tailleY);
                 alea = rand.nextInt();
             }while(bombe(alea%tailleX,alea/tailleX));
-            Grille[alea%tailleX][alea/tailleX] = new Case(alea%tailleX,alea/tailleX,9);
+            Grille[alea%tailleX][alea/tailleX] = new Case(9);
         }
+        
         
         for(int j=0;j<tailleX;j++){
             for(int k=0;k<tailleY;k++){
-                if(!this.Grille[j][k].bombe()){
-                    Grille[j][k] = new Case(j,k,voisines(j, k));
+                if(!bombe(j, k)){
+                    Grille[j][k] = new Case(voisines(j,k));
                 }
             }
         }
@@ -47,11 +47,7 @@ public class GameBoard extends Observable{
         return this.Grille[x][y].bombe();
     }
     
-    public void poseDrapeau(int x,int y){
-        minesRestantes --;
-    }
-    
-    public final Case[] voisines(int x, int y){
+    public Case[] voisines(int x, int y){
         int compteur=0;
         Case[] voisines = new Case[8];
         for(int i=-1;i<2;i++)
