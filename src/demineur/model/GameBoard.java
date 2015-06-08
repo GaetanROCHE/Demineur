@@ -6,7 +6,6 @@
 package demineur.model;
 
 
-import java.util.Observable;
 import java.util.Random;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Random;
  */
 
 
-public class GameBoard extends Observable{
+public class GameBoard{
     private final Case[][] Grille;
 
     private final int tailleX;
@@ -56,8 +55,11 @@ public class GameBoard extends Observable{
     }
     
     public void poseDrapeau(int x,int y){
-        minesRestantes --;
-        Grille[x][y].reveleCase();
+        if(Grille[x][y].setDrapeau()){
+            this.minesRestantes --;
+        }else{
+            this.minesRestantes ++;
+        }
     }
     
     public final int compteMine(int x,int y){
@@ -80,6 +82,7 @@ public class GameBoard extends Observable{
         else{
             if(Grille[x][y].reveleCase() == 9){
                 jeu = false;
+                reveleGrille();
             }
         }
     }
@@ -106,12 +109,19 @@ public class GameBoard extends Observable{
         String res = "";
         for(int i = 0; i<this.tailleX;i++){
             for(int j = 0; j<this.tailleY;j++){
-                System.out.println(i +" "+j);
                 res = res + this.Grille[i][j].toString();
             }
             res = res + "\n";
         }
         return res;
+    }
+
+    private void reveleGrille() {
+        for(int i = 0; i<tailleX; i++){
+            for(int j = 0; j<tailleY; j++){
+                Grille[i][j].reveleCase();
+            }
+        }
     }
     
     

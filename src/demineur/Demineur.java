@@ -46,6 +46,7 @@ public class Demineur {
                 f.setMinimumSize(f.getSize());
                 f.setVisible(true);
                 GameBoard Plateau = new GameBoard(10,10,10);
+                System.out.println(Plateau.toString());
             }
         };
         SwingUtilities.invokeLater(r);
