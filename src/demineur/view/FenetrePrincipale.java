@@ -8,11 +8,16 @@ package demineur.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -68,15 +73,28 @@ public final class FenetrePrincipale extends JPanel implements MouseListener {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         if(SwingUtilities.isLeftMouseButton(e)){
-                            b.setBackground(Color.BLACK);
+                            b.setIcon(null);
+                            b.setBackground(Color.BLACK);                     
                             }
                         if(SwingUtilities.isRightMouseButton(e)){
-                            b.setBackground(Color.MAGENTA);
+                            Image img;                                 
+                            if(b.getBackground()!=Color.RED)
+                            {
+                                b.setBackground(Color.RED);  
+                                 try {
+                                    img = ImageIO.read(getClass().getResource("icone.jpg"));
+                                    b.setIcon(new ImageIcon(img));
+                                    } catch (IOException ex) {
+                                Logger.getLogger(FenetrePrincipale.class.getName()).log(Level.SEVERE, null, ex);
+                                } 
+                            }
+                            else{
+                                b.setIcon(null);
+                                b.setBackground(Color.GREEN);  
+                                }    
                             }
                         
                     }
-
-                
                 });
                 
                 
@@ -123,18 +141,18 @@ public final class FenetrePrincipale extends JPanel implements MouseListener {
             setBackground(Color.BLACK);
         }
         if(SwingUtilities.isRightMouseButton(e)){
-            setBackground(Color.MAGENTA);
+             
         }
-        System.out.print("bibi");
         setBackground(Color.BLACK);
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     @Override
     public void mousePressed(MouseEvent e) {
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
     @Override
     public void mouseReleased(MouseEvent e) {
     //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
