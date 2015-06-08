@@ -29,7 +29,6 @@ public class GameBoard extends Observable{
         this.minesRestantes = minesRestantes;
         this.Grille = new Case[tailleX][tailleY];
         jeu = true;
-        System.out.println("LOL");
         Random rand;
         int alea;
         for(int i=0;i<minesRestantes;i++){
@@ -37,7 +36,6 @@ public class GameBoard extends Observable{
                 rand = new Random();
 
                 alea = rand.nextInt(tailleX*tailleY);
-                System.out.println("CACA");
             }while(this.Grille[alea%tailleX][alea/tailleX] != null);
             Grille[alea%tailleX][alea/tailleX] = new Case(alea%tailleX,alea/tailleX,9);
         }
@@ -57,8 +55,6 @@ public class GameBoard extends Observable{
         return this.Grille[x][y].bombe();
     }
     
-
-
     public void poseDrapeau(int x,int y){
         minesRestantes --;
         Grille[x][y].reveleCase();
