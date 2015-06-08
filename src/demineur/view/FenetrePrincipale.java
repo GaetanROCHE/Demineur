@@ -170,5 +170,4 @@ public final class FenetrePrincipale extends JPanel implements MouseListener {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }   
     
-   //PTDR
 }
