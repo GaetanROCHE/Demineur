@@ -25,14 +25,12 @@ public class Case extends Observable{
         etat = 0;
         this.voisines = voisines;
         this.drapeau = false;
-        this.callUpdate();
     }
     
     public Case(int contenu) {
         this.contenu = contenu;
         etat = 0;
         this.drapeau = false;
-        this.callUpdate();
     }
 
 
@@ -42,7 +40,6 @@ public class Case extends Observable{
         this.contenu=contenue;
         x=j;
         y=k;
-        this.callUpdate();
     }
     
     public int reveleCase(){
