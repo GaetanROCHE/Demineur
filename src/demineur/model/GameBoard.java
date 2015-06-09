@@ -6,6 +6,7 @@
 package demineur.model;
 
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -30,22 +31,23 @@ public class GameBoard{
         jeu = true;
         Random rand;
         int alea;
+        
+        for(int j=0;j<tailleX;j++){
+            for(int k=0;k<tailleY;k++){
+                Grille[j][k] = new Case(j,k,0);
+            }
+        }
+        
         for(int i=0;i<minesRestantes;i++){
             do{
                 rand = new Random();
 
                 alea = rand.nextInt(tailleX*tailleY);
-            }while(this.Grille[alea%tailleX][alea/tailleX] != null);
-            Grille[alea%tailleX][alea/tailleX] = new Case(alea%tailleX,alea/tailleX,9);
-        }
-        
-        
-        for(int j=0;j<tailleX;j++){
-            for(int k=0;k<tailleY;k++){
-                if(this.Grille[j][k] == null) {
-                    Grille[j][k] = new Case(j,k,compteMine(j,k));
-
-                }
+            }while(this.Grille[alea%tailleX][alea/tailleX].bombe());
+            Grille[alea%tailleX][alea/tailleX].setBombe();
+            for(Case C : this.voisines(alea%tailleX, alea/tailleX)){
+                System.out.println("lol");
+                C.incContenu();
             }
         }
     }
@@ -64,7 +66,7 @@ public class GameBoard{
     
     public final int compteMine(int x,int y){
         int compteur = 0;
-        Case Cases[] = voisines(x,y);
+        ArrayList<Case> Cases = voisines(x,y);
         for(Case C : Cases){
             if(C != null && C.bombe()){
                 compteur ++;
@@ -87,16 +89,16 @@ public class GameBoard{
         }
     }
     
-    public final Case[] voisines(int x, int y){
+    public final ArrayList<Case> voisines(int x, int y){
         int compteur=0;
-        Case[] voisines = new Case[8];
+        ArrayList<Case> voisines = new ArrayList<>();
         for(int i=-1;i<2;i++)
         {
             for(int j=-1;j<2;j++)
             {
                 if(j+y>=0 && i+x>=0 && i+x<tailleX && j+y<tailleY && !(j==0 && i==0))
                 {
-                    voisines[compteur]=Grille[x+i][y+j];
+                    voisines.add(Grille[x+i][y+j]);
                     compteur++;
                 }
             }

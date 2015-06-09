@@ -21,11 +21,7 @@ public class Case extends Observable{
     private boolean drapeau;
     private Observer obs;
 
-    public Case(Case[] voisines) {
-        etat = 0;
-        this.voisines = voisines;
-        this.drapeau = false;
-    }
+    
     
     public Case(int contenu) {
         this.contenu = contenu;
@@ -87,6 +83,16 @@ public class Case extends Observable{
     public void callUpdate(){
         this.setChanged();
         this.notifyObservers();
+    }
+
+    void setBombe() {
+        this.contenu = 9;
+    }
+
+    void incContenu() {
+        if(this.contenu != 9){
+            this.contenu ++;
+        }
     }
     
 }
