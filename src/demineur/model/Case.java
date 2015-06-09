@@ -16,8 +16,6 @@ public class Case extends Observable{
     private Case[] voisines;
     private int etat;
     private int contenu;
-    private int x;
-    private int y;
     private boolean drapeau;
     private Observer obs;
 
@@ -34,8 +32,6 @@ public class Case extends Observable{
         contenu=0;
         etat = 0;
         this.contenu=contenue;
-        x=j;
-        y=k;
     }
     
     public int reveleCase(){
@@ -48,16 +44,6 @@ public class Case extends Observable{
         etat = 2;
         this.callUpdate();
     }
-
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-    
     
     
     public boolean bombe(){
