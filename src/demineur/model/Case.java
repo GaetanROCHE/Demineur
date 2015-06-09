@@ -42,15 +42,19 @@ public class Case extends Observable{
         y=k;
     }
     
+    public int getEtat(){
+        return this.etat;
+    }
+    
     public int reveleCase(){
         etat = 1;
-        this.callUpdate();
+       // this.callUpdate();
         return contenu;
     }
     
     public void marqueCase(){
         etat = 2;
-        this.callUpdate();
+      //  this.callUpdate();
     }
 
 

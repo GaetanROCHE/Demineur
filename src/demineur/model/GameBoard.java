@@ -7,6 +7,8 @@ package demineur.model;
 
 
 import java.util.Random;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.util.Random;
  */
 
 
-public class GameBoard{
+public class GameBoard extends Observable{
     private final Case[][] Grille;
 
     private final int tailleX;
@@ -48,6 +50,25 @@ public class GameBoard{
                 }
             }
         }
+    }
+    
+    public int getMines(){
+        return this.minesRestantes;
+    }
+    
+    public int getTailleX(){
+        return this.tailleX;
+    }
+    
+    public int getTailleY(){
+        return this.tailleY;
+    }
+    
+    public Case getCase(int[] id){
+        return Grille[id[0]][id[1]];
+    }
+    public Case getCase(int x, int y){
+        return Grille[x][y];
     }
     
     public final boolean bombe(int x, int y){
