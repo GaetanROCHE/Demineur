@@ -59,6 +59,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
         for(int i = 0; i < tailleX; i++){
             for(int j = 0; j< tailleY; j++){
                 CaseGraphique cg = new CaseGraphique(i,j, this);
+                platteau.getCase(i, j).addObserver(this);
+               // cases[i][j].add(new JLabel(""));
                 cases[i][j]=cg;
                 cg.setBorder(limite);
                 jc.add(cg);  
@@ -89,29 +91,52 @@ public class Vue extends JFrame implements Observer, ActionListener{
             {
                 if(platteau.getCase(i, j).getEtat()==0)
                 {
-                    cases[i][j].setImage(0);
-                }
-                if(platteau.getCase(i, j).getEtat()==1)
-                {
+                    cases[i][j].setBackground(Color.white);
                     cases[i][j].setImage(1);
+                   // cases[i][j].setImage(0);
                 }
-                if(platteau.getCase(i, j).getEtat()==2)
+                else if(platteau.getCase(i, j).getEtat()==1)
                 {
-                    cases[i][j].setImage(2);
+                    if(platteau.getCase(i, j).getContenu()==9)
+                    cases[i][j].setBackground(Color.BLACK);
+                    else
+                        //cases[i][j].add(new JLabel(label.setText));
+                        //cases[i][j].setBackground(Color.GREEN);
+                        cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
+                    
+                }
+                else if(platteau.getCase(i, j).getEtat()==2)
+                {
+                    cases[i][j].setBackground(Color.red);
+                   // cases[i][j].setImage(2);
                     findujeu = true;
                 }
+                else if(platteau.getCase(i, j).getContenu()==0)
+                {
+                    cases[i][j].setBackground(Color.green);
+                     //cases[i][j].setImage(1);
+                }
+                else
+                {
+                    cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
+                }
                 
+                cases[i][j].validate();
+                cases[i][j].repaint();
             }
         }
         
         
         
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+            setVisible(false);
+            Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
+            v.setVisible(true);
     }
     
     

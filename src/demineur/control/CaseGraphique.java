@@ -43,24 +43,31 @@ public class CaseGraphique extends JPanel {
             @Override
             public void mouseEntered(MouseEvent arg0) {
                 super.mouseClicked(arg0);
-                if (vue.platteau.getCase(id).getEtat()==0)
-                    setBackground(Color.white);
+                if (vue.platteau.getCase(id).getEtat()==0){}
+                    //setBackground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent arg0) {
                 super.mouseExited(arg0);
-                if (vue.platteau.getCase(id).getEtat()==1);
-                    //setBackground(Color.BLACK);
+                if (vue.platteau.getCase(id).getEtat()!=0);
+                   // setBackground(Color.WHITE);
             }
 
             @Override
             public void mousePressed(MouseEvent arg0) {
+                System.out.println("bouh");
                 if (arg0.getButton() == 3) {
-                    vue.platteau.poseDrapeau(id[0], id[1]);
+                    System.out.println("bah");
+                    vue.platteau.getCase(id[0], id[1]).setDrapeau();
                 } else {
+                    System.out.println("ih");
                     if (!(vue.platteau.getCase(id).getEtat()==2))
+                    {
                         vue.platteau.reveleCase(id[0], id[1]);
+                        System.out.println("mouh");
+                    }
+                        
                 }
             }
 

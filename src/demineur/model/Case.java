@@ -42,15 +42,19 @@ public class Case extends Observable{
         return this.etat;
     }
     
+    public int getContenu(){
+        return this.contenu;
+    }
+    
     public int reveleCase(){
         etat = 1;
-       // this.callUpdate();
+        this.callUpdate();
         return contenu;
     }
     
     public void marqueCase(){
         etat = 2;
-      //  this.callUpdate();
+        this.callUpdate();
     }
 
 
@@ -79,8 +83,17 @@ public class Case extends Observable{
     }
 
     public boolean setDrapeau() {
-        this.drapeau = !this.drapeau;
-        this.callUpdate();
+        if(this.etat!=1){
+          this.drapeau = !this.drapeau;
+        if(this.drapeau){
+            etat=2;
+        }
+        else{
+            etat=0;
+        }
+        this.callUpdate();  
+        }
+        
         return this.drapeau;
     }
     

@@ -52,7 +52,6 @@ public class GameBoard extends Observable{
             }while(this.Grille[alea%tailleX][alea/tailleX].bombe());
             Grille[alea%tailleX][alea/tailleX].setBombe();
             for(Case C : this.voisines(alea%tailleX, alea/tailleX)){
-                System.out.println("lol");
                 C.incContenu();
             }
         }
@@ -104,7 +103,9 @@ public class GameBoard extends Observable{
         caseDecouverte ++;
         if(Grille[x][y].reveleCase() == 0){//s'il n'y a pas de bombe
             for(Case C : voisines(x, y)){
-                reveleCase(C.getX(), C.getY());
+                if(C.getEtat()==0){
+                    reveleCase(C.getX(), C.getY());
+                }
             }
             if(caseDecouverte + this.nombreMines == this.tailleX*this.tailleY){
                 this.jeu = 2;
