@@ -21,14 +21,18 @@ public class GameBoard{
     private final int tailleX;
     private final int tailleY;
     private int minesRestantes;
-    private boolean jeu;
+    private int jeu;
+    private int caseDecouverte;
+    private int nombreMines;
 
     public GameBoard(int tailleX, int tailleY, int minesRestantes) {
         this.tailleX = tailleX;
         this.tailleY = tailleY;
         this.minesRestantes = minesRestantes;
+        this.nombreMines = minesRestantes;
         this.Grille = new Case[tailleX][tailleY];
-        jeu = true;
+        jeu = 0;
+        caseDecouverte = 0;
         Random rand;
         int alea;
         
@@ -76,14 +80,18 @@ public class GameBoard{
     }
     
     public void reveleCase(int x, int y){
+        caseDecouverte ++;
         if(Grille[x][y].reveleCase() == 0){//s'il n'y a pas de bombe
             for(Case C : voisines(x, y)){
                 reveleCase(C.getX(), C.getY());
             }
+            if(caseDecouverte + this.nombreMines == this.tailleX*this.tailleY){
+                this.jeu = 2;
+            }
         }
         else{
             if(Grille[x][y].reveleCase() == 9){
-                jeu = false;
+                jeu = 1;
                 reveleGrille();
             }
         }
