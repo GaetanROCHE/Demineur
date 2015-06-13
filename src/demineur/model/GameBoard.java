@@ -218,5 +218,9 @@ public class GameBoard extends Observable{
         catch(IOException e){
         }
     }
+
+    public int getJeu() {
+        return this.jeu;
+    }
     
 }
