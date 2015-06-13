@@ -82,8 +82,10 @@ public class Vue extends JFrame implements Observer, ActionListener{
     }
 
     @Override
+    @SuppressWarnings("empty-statement")
     public void update(Observable o, Object arg) {
         boolean findujeu = false;
+        boolean defaite = false;
         JLabel label;
         String texte="";
         
@@ -99,8 +101,13 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 }
                 else if(platteau.getCase(i, j).getEtat()==1)
                 {
-                    if(platteau.getCase(i, j).getContenu()==9)
-                    cases[i][j].setBackground(Color.BLACK);
+                    if(platteau.getCase(i, j).getContenu()==9){
+                        cases[i][j].setBackground(Color.BLACK);
+                        findujeu=true;
+                        defaite=true;
+                    }
+                    
+                    
                     else{
                         if(platteau.getCase(i, j).getContenu()!=0){
                             texte= Integer.toString(platteau.getCase(i, j).getContenu());
@@ -132,12 +139,38 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 cases[i][j].validate();
                 cases[i][j].repaint();
             }
-        }
+        }      
+    
+        if(findujeu){
+             Object[] choix = {"Rejouer", "Arreter"};
+             String textefin;
+             if(defaite){
+                 textefin="Dommage, c'est perdu";
+             }
+             else{
+                 textefin ="Felicitations, c'est gagné";
+             }
+             
+                 defaite=false;
+                 findujeu=false;
+             
+             int boutton = JOptionPane.showOptionDialog(this, textefin, "C'est fini", 
+                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
+                     
+             if(boutton == 0){
+
+                    setVisible(false);
+                    Vue nouvellevue = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
+                    nouvellevue.setVisible(true);
+             }
+             if(boutton == 1){
+                 System.exit(0);
+             }
+                    
+        }   
+            
         
-        
-        
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  }    
 
     @Override
     public void actionPerformed(ActionEvent e) {
