@@ -38,12 +38,15 @@ public class Case extends Observable{
         y=k;
     }
 
-    public Case(int etat, int contenu, int x, int y, boolean drapeau) {
+    public Case(int etat, int contenu, int x, int y, int drapeau) {
         this.etat = etat;
         this.contenu = contenu;
         this.x = x;
         this.y = y;
-        this.drapeau = drapeau;
+        if(drapeau == 1)
+            this.drapeau = true;
+        else
+            this.drapeau = false;
     }
     
     public int getEtat(){

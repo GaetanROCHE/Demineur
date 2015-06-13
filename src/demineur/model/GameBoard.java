@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Observable;
@@ -29,6 +30,11 @@ public class GameBoard extends Observable{
     private final int tailleY;
     private int minesRestantes;
     private int jeu;
+    /*
+    * 0 jeu en cours
+    * 1 le joueur à perdu 
+    * 2 le joueur à gagné
+    */
     private int caseDecouverte;
     private int nombreMines;
 
@@ -62,8 +68,29 @@ public class GameBoard extends Observable{
         }
     }
     
-    public int getJeu(){
-        return this.jeu;
+    /*
+    * Renvoi des exceptions que je ne pouvais pas gérer dans la fonction
+    */
+    public GameBoard(String nomFichier) throws FileNotFoundException, IOException {
+            int i;
+            int j;
+            byte[] Data;
+            FileInputStream fichier = new FileInputStream(new File("sauvegarde.txt"));
+            Data = new byte[5];
+            fichier.read(Data);
+            this.caseDecouverte=Data[0];
+            this.minesRestantes=Data[1];
+            this.nombreMines=Data[2];
+            this.tailleX=Data[3];
+            this.tailleY=Data[4];
+            this.Grille = new Case[tailleX][tailleY];
+            for(i=0; i<tailleX; i++){
+                for(j=0;j<tailleY;j++){
+                    fichier.read(Data);
+                    Grille[i][j]=new Case(Data[3], Data[2], Data[0], Data[1], Data[4]);
+                }
+            }
+
     }
     
     public int getMines(){
@@ -97,6 +124,9 @@ public class GameBoard extends Observable{
         }
         this.callUpdate(); 
        }        
+    
+
+
     
 
     
@@ -173,7 +203,7 @@ public class GameBoard extends Observable{
         try{
             byte[] Data;
             FileOutputStream fichier = new FileOutputStream(new File("sauvegarde.txt"));
-            Data = new byte[this.tailleX*this.tailleY*6+5];
+            Data = new byte[this.tailleX*this.tailleY*5+5];
             Data[0]=(byte)this.caseDecouverte;
             Data[1]=(byte)this.minesRestantes;
             Data[2]=(byte)this.nombreMines;
@@ -195,11 +225,18 @@ public class GameBoard extends Observable{
         catch(IOException e){
         }
     }
+
     
     public void callUpdate(){
         this.setChanged();
         this.notifyObservers();
     }
     
+
+
+    public int getJeu() {
+        return this.jeu;
+    }
+
     
 }
