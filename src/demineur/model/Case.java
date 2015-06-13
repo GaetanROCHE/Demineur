@@ -37,6 +37,14 @@ public class Case extends Observable{
         x=j;
         y=k;
     }
+
+    public Case(int etat, int contenu, int x, int y, boolean drapeau) {
+        this.etat = etat;
+        this.contenu = contenu;
+        this.x = x;
+        this.y = y;
+        this.drapeau = drapeau;
+    }
     
     public int getEtat(){
         return this.etat;
@@ -67,7 +75,6 @@ public class Case extends Observable{
     }
     
     
-    
     public boolean bombe(){
         if(contenu == 9){
             return true;
@@ -80,6 +87,13 @@ public class Case extends Observable{
     @Override
     public String toString(){
         return "|"+this.contenu +"|";
+    }
+    
+    public int getDrapeau(){
+        if(this.drapeau)
+            return 1;
+        else
+            return 0;
     }
 
     public boolean setDrapeau() {

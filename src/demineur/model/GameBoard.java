@@ -173,21 +173,20 @@ public class GameBoard extends Observable{
             Data[4]=(byte)this.tailleY;
             for(int i = 0; i<this.tailleX; i++){
                 for(int j = 0; j<this.tailleY; j++){
-                    Data[(i*this.tailleX+j)]=(byte)Grille[i][j].getY();//n'importe quoi
-                    
+                    Data[(i*this.tailleX+j)*5+5]=(byte)Grille[i][j].getX();
+                    Data[(i*this.tailleX+j)*5+6]=(byte)Grille[i][j].getY();
+                    Data[(i*this.tailleX+j)*5+7]=(byte)Grille[i][j].getContenu();
+                    Data[(i*this.tailleX+j)*5+8]=(byte)Grille[i][j].getEtat();
+                    Data[(i*this.tailleX+j)*5+9]=(byte)Grille[i][j].getDrapeau();
                 }
             }
             fichier.write(Data);
-            
         }
         catch(FileNotFoundException e){
-            
         }
         catch(IOException e){
-            
         }
-        
-        
     }
+    
     
 }
