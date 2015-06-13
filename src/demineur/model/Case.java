@@ -13,7 +13,7 @@ import java.util.Observer;
  * @author Gaëtan
  */
 public class Case extends Observable{
-    private Case[] voisines;
+    
     private int etat;
     private int contenu;
     private int x;

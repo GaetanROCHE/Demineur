@@ -8,6 +8,10 @@ package demineur.model;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  *
@@ -50,7 +54,6 @@ public class GameBoard{
             }while(this.Grille[alea%tailleX][alea/tailleX].bombe());
             Grille[alea%tailleX][alea/tailleX].setBombe();
             for(Case C : this.voisines(alea%tailleX, alea/tailleX)){
-                System.out.println("lol");
                 C.incContenu();
             }
         }
@@ -134,5 +137,33 @@ public class GameBoard{
         }
     }
     
+    public void sauvegarder(){
+        try{
+            byte[] Data;
+            FileOutputStream fichier = new FileOutputStream(new File("sauvegarde.txt"));
+            Data = new byte[this.tailleX*this.tailleY*6+5];
+            Data[0]=(byte)this.caseDecouverte;
+            Data[1]=(byte)this.minesRestantes;
+            Data[2]=(byte)this.nombreMines;
+            Data[3]=(byte)this.tailleX;
+            Data[4]=(byte)this.tailleY;
+            for(int i = 0; i<this.tailleX; i++){
+                for(int j = 0; j<this.tailleY; j++){
+                    Data[(i*this.tailleX+j)]=(byte)Grille[i][j].getY();//n'importe quoi
+                    
+                }
+            }
+            fichier.write(Data);
+            
+        }
+        catch(FileNotFoundException e){
+            
+        }
+        catch(IOException e){
+            
+        }
+        
+        
+    }
     
 }
