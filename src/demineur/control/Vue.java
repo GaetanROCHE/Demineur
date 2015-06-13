@@ -30,6 +30,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
     CaseGraphique[][] cases ;
     
     JMenuItem nouvellepartie;
+    JMenuItem sauvegarder;
     
     public Vue(GameBoard board){
         this.platteau=board;
@@ -46,8 +47,11 @@ public class Vue extends JFrame implements Observer, ActionListener{
         JMenu menu = new JMenu("Jeu");
         nouvellepartie = new JMenuItem("Nouvelle Partie");
         nouvellepartie.addActionListener(this);
+        sauvegarder = new JMenuItem("Sauvegarder");
+        sauvegarder.addActionListener(this);
         
         menu.add(nouvellepartie);
+        menu.add(sauvegarder);
         barremenu.add(menu);
         setJMenuBar(barremenu);
         
@@ -86,6 +90,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
     public void update(Observable o, Object arg) {
         boolean findujeu = false;
         boolean defaite = false;
+        int etat;
         JLabel label;
         String texte="";
         
@@ -124,13 +129,10 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 else if(platteau.getCase(i, j).getEtat()==2)
                 {
                     cases[i][j].setBackground(Color.red);
-                   // cases[i][j].setImage(2);
-                    findujeu = true;
                 }
                 else if(platteau.getCase(i, j).getContenu()==0)
                 {
                     cases[i][j].setBackground(Color.green);
-                     //cases[i][j].setImage(1);
                 }
                 else
                 {
@@ -139,9 +141,14 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 cases[i][j].validate();
                 cases[i][j].repaint();
             }
-        }      
+        }
+        System.out.println(platteau.getJeu());
+        if(platteau.getJeu()!=0){
+            findujeu=true;
+        };
     
         if(findujeu){
+            findujeu=false;
              Object[] choix = {"Rejouer", "Arreter"};
              String textefin;
              if(defaite){
@@ -152,32 +159,33 @@ public class Vue extends JFrame implements Observer, ActionListener{
              }
              
                  defaite=false;
-                 findujeu=false;
-             
              int boutton = JOptionPane.showOptionDialog(this, textefin, "C'est fini", 
                      JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
                      
              if(boutton == 0){
-
                     setVisible(false);
                     Vue nouvellevue = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
                     nouvellevue.setVisible(true);
              }
              if(boutton == 1){
                  System.exit(0);
-             }
-                    
+             }           
         }   
-            
-        
   }    
 
     @Override
     public void actionPerformed(ActionEvent e) {
         
+        if(e.getSource() == nouvellepartie){
             setVisible(false);
             Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
             v.setVisible(true);
+        }
+        if(e.getSource() == sauvegarder){
+            platteau.sauvegarder();
+            JOptionPane.showMessageDialog(rootPane, "La partie a été sauvegardée");
+        }
+
     }
     
     

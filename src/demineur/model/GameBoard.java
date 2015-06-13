@@ -62,6 +62,10 @@ public class GameBoard extends Observable{
         }
     }
     
+    public int getJeu(){
+        return this.jeu;
+    }
+    
     public int getMines(){
         return this.minesRestantes;
     }
@@ -86,12 +90,17 @@ public class GameBoard extends Observable{
     }
     
     public void poseDrapeau(int x,int y){
+        if(caseDecouverte + 1 + this.nombreMines == this.tailleX*this.tailleY){
+                this.jeu = 2;
+            }
         if(Grille[x][y].setDrapeau()){
             this.minesRestantes --;
         }else{
             this.minesRestantes ++;
         }
-    }
+       }        
+    
+
     
     public final int compteMine(int x,int y){
         int compteur = 0;
@@ -160,6 +169,7 @@ public class GameBoard extends Observable{
             }
         }
     }
+    
     
     public void sauvegarder(){
         try{
