@@ -38,6 +38,14 @@ public class Case extends Observable{
         y=k;
     }
     
+    public int getEtat(){
+        return this.etat;
+    }
+    
+    public int getContenu(){
+        return this.contenu;
+    }
+    
     public int reveleCase(){
         etat = 1;
         this.callUpdate();
@@ -75,8 +83,17 @@ public class Case extends Observable{
     }
 
     public boolean setDrapeau() {
-        this.drapeau = !this.drapeau;
-        this.callUpdate();
+        if(this.etat!=1){
+          this.drapeau = !this.drapeau;
+        if(this.drapeau){
+            etat=2;
+        }
+        else{
+            etat=0;
+        }
+        this.callUpdate();  
+        }
+        
         return this.drapeau;
     }
     

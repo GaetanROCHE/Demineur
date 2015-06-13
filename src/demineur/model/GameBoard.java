@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
+
 
 /**
  *
@@ -19,7 +22,7 @@ import java.io.IOException;
  */
 
 
-public class GameBoard{
+public class GameBoard extends Observable{
     private final Case[][] Grille;
 
     private final int tailleX;
@@ -59,6 +62,25 @@ public class GameBoard{
         }
     }
     
+    public int getMines(){
+        return this.minesRestantes;
+    }
+    
+    public int getTailleX(){
+        return this.tailleX;
+    }
+    
+    public int getTailleY(){
+        return this.tailleY;
+    }
+    
+    public Case getCase(int[] id){
+        return Grille[id[0]][id[1]];
+    }
+    public Case getCase(int x, int y){
+        return Grille[x][y];
+    }
+    
     public final boolean bombe(int x, int y){
         return this.Grille[x][y].bombe();
     }
@@ -86,7 +108,9 @@ public class GameBoard{
         caseDecouverte ++;
         if(Grille[x][y].reveleCase() == 0){//s'il n'y a pas de bombe
             for(Case C : voisines(x, y)){
-                reveleCase(C.getX(), C.getY());
+                if(C.getEtat()==0){
+                    reveleCase(C.getX(), C.getY());
+                }
             }
             if(caseDecouverte + this.nombreMines == this.tailleX*this.tailleY){
                 this.jeu = 2;

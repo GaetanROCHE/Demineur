@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/view/FenetrePrincipale.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/model/GameBoard.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/control/CaseGraphique.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/control/Control.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/model/Menu.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/control/Vue.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/view/ChessBoardWithColumnsAndRows.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/model/Case.java</file>
+            <file>file:/C:/Users/Malomek/Documents/GitHub/Demineur/src/demineur/view/Click.java</file>
+        </group>
     </open-files>
 </project-private>
