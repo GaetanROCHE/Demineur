@@ -90,14 +90,12 @@ public class GameBoard extends Observable{
     }
     
     public void poseDrapeau(int x,int y){
-        if(caseDecouverte + 1 + this.nombreMines == this.tailleX*this.tailleY){
-                this.jeu = 2;
-            }
         if(Grille[x][y].setDrapeau()){
             this.minesRestantes --;
         }else{
             this.minesRestantes ++;
         }
+        this.callUpdate(); 
        }        
     
 
@@ -196,6 +194,11 @@ public class GameBoard extends Observable{
         }
         catch(IOException e){
         }
+    }
+    
+    public void callUpdate(){
+        this.setChanged();
+        this.notifyObservers();
     }
     
     

@@ -64,7 +64,6 @@ public class Vue extends JFrame implements Observer, ActionListener{
             for(int j = 0; j< tailleY; j++){
                 CaseGraphique cg = new CaseGraphique(i,j, this);
                 platteau.getCase(i, j).addObserver(this);
-               // cases[i][j].add(new JLabel(""));
                 cases[i][j]=cg;
                 cg.setBorder(limite);
                 jc.add(cg);  
@@ -128,6 +127,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 }
                 else if(platteau.getCase(i, j).getEtat()==2)
                 {
+                    //platteau.getCase(i, j).setDrapeau();
                     cases[i][j].setBackground(Color.red);
                 }
                 else if(platteau.getCase(i, j).getContenu()==0)
@@ -159,12 +159,19 @@ public class Vue extends JFrame implements Observer, ActionListener{
              }
              
                  defaite=false;
-             int boutton = JOptionPane.showOptionDialog(this, textefin, "C'est fini", 
+             int boutton = JOptionPane.showOptionDialog(this, textefin, "Jeu fini", 
                      JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
                      
              if(boutton == 0){
+                    
                     setVisible(false);
+                    //this = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
                     Vue nouvellevue = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
+                    //GameBoard nouvellevue = new GameBoard(this.nbMines, this.tailleX, this.tailleY);
+                    this.platteau=nouvellevue.platteau;
+                    this.cases=nouvellevue.cases;
+                    update(o,arg);
+                    
                     nouvellevue.setVisible(true);
              }
              if(boutton == 1){
@@ -177,7 +184,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
     public void actionPerformed(ActionEvent e) {
         
         if(e.getSource() == nouvellepartie){
-            setVisible(false);
+            this.setVisible(false);
             Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
             v.setVisible(true);
         }
