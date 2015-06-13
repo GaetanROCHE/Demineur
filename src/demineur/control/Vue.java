@@ -84,6 +84,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
     @Override
     public void update(Observable o, Object arg) {
         boolean findujeu = false;
+        JLabel label;
+        String texte="";
         
         for(int i=0;i<tailleX;i++)
         {
@@ -99,11 +101,18 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 {
                     if(platteau.getCase(i, j).getContenu()==9)
                     cases[i][j].setBackground(Color.BLACK);
-                    else
+                    else{
+                        if(platteau.getCase(i, j).getContenu()!=0){
+                            texte= Integer.toString(platteau.getCase(i, j).getContenu());
+                            label= new JLabel(texte, JLabel.CENTER);
+                            //label.add(cases[i][j]).setVisible(true);
+                            cases[i][j].add(label);
+                            label.setVisible(true);
+                        }
                         //cases[i][j].add(new JLabel(label.setText));
-                        //cases[i][j].setBackground(Color.GREEN);
-                        cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
-                    
+                        cases[i][j].setBackground(Color.GREEN);
+                       // cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
+                    }    
                 }
                 else if(platteau.getCase(i, j).getEtat()==2)
                 {
@@ -120,7 +129,6 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 {
                     cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
                 }
-                
                 cases[i][j].validate();
                 cases[i][j].repaint();
             }
