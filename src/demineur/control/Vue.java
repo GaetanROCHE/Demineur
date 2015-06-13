@@ -13,7 +13,10 @@ import java.util.Observer;
 
 import demineur.model.GameBoard;
 import demineur.model.Case;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.border.Border;
 
 /**
@@ -31,6 +34,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
     
     JMenuItem nouvellepartie;
     JMenuItem sauvegarder;
+    JMenuItem charger;
     
     public Vue(GameBoard board){
         this.platteau=board;
@@ -49,9 +53,12 @@ public class Vue extends JFrame implements Observer, ActionListener{
         nouvellepartie.addActionListener(this);
         sauvegarder = new JMenuItem("Sauvegarder");
         sauvegarder.addActionListener(this);
+        charger = new JMenuItem("Charger");
+        charger.addActionListener(this);
         
         menu.add(nouvellepartie);
         menu.add(sauvegarder);
+        menu.add(charger);
         barremenu.add(menu);
         setJMenuBar(barremenu);
         
@@ -191,6 +198,19 @@ public class Vue extends JFrame implements Observer, ActionListener{
         if(e.getSource() == sauvegarder){
             platteau.sauvegarder();
             JOptionPane.showMessageDialog(rootPane, "La partie a été sauvegardée");
+        }
+        if(e.getSource() == charger){
+            this.setVisible(false);
+            
+            try {
+                Vue v;
+                v = new Vue(new GameBoard("sauvegarde.txt"));
+                v.setVisible(true);
+                v.update(platteau, v);
+            } catch (IOException ex) {
+                Logger.getLogger(Vue.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
 
     }
