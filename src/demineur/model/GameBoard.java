@@ -112,6 +112,10 @@ public class GameBoard extends Observable{
         return Grille[x][y];
     }
     
+    public int getCasedecouverte(){
+        return this.caseDecouverte;
+    }
+    
     public final boolean bombe(int x, int y){
         return this.Grille[x][y].bombe();
     }
@@ -127,9 +131,6 @@ public class GameBoard extends Observable{
     
 
 
-    
-
-    
     public final int compteMine(int x,int y){
         int compteur = 0;
         ArrayList<Case> Cases = voisines(x,y);
@@ -157,8 +158,10 @@ public class GameBoard extends Observable{
             if(Grille[x][y].reveleCase() == 9){
                 jeu = 1;
                 reveleGrille();
+                
             }
         }
+        this.callUpdate();
     }
     
     public final ArrayList<Case> voisines(int x, int y){
@@ -190,12 +193,27 @@ public class GameBoard extends Observable{
         return res;
     }
 
-    private void reveleGrille() {
+    public void reveleGrille() {
         for(int i = 0; i<tailleX; i++){
             for(int j = 0; j<tailleY; j++){
                 Grille[i][j].reveleCase();
             }
         }
+    }
+    
+    public int[] chercheMine(){
+        int[] res = new int[2];
+        for(int i = 0; i<tailleX; i++){
+            for(int j = 0; j<tailleY; j++){
+                if(Grille[i][j].getEtat()!=0 && Grille[i][j].getContenu() ==9){
+                    res[0]=i;
+                    res[1]=j;
+                    return res;
+                }
+                    
+            }
+        }
+        return null;
     }
     
     
@@ -232,8 +250,6 @@ public class GameBoard extends Observable{
         this.notifyObservers();
     }
     
-
-
     public int getJeu() {
         return this.jeu;
     }

@@ -59,7 +59,7 @@ public class Case extends Observable{
     
     public int reveleCase(){
         etat = 1;
-        this.callUpdate();
+        //this.callUpdate();
         return contenu;
     }
     
@@ -107,10 +107,9 @@ public class Case extends Observable{
         }
         else{
             etat=0;
+        } 
         }
-        this.callUpdate();  
-        }
-        
+        this.callUpdate(); 
         return this.drapeau;
     }
     

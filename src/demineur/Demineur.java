@@ -6,6 +6,7 @@
 package demineur;
 
 
+import demineur.control.Vue;
 import demineur.model.GameBoard;
 import demineur.view.ChessBoardWithColumnsAndRows;
 import demineur.view.FenetrePrincipale;
@@ -19,10 +20,23 @@ import javax.swing.SwingUtilities;
  */
 public class Demineur {
 
+    
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Vue v = new Vue(new GameBoard(10, 10, 10));
+        v.setVisible(true);
+    }    
+    
+    
+    
+    
+    /**
+     * @param args the command line arguments
+     */
+   /* public static void main(String[] args) {
 
 
         // TODO code application logic here
@@ -51,5 +65,5 @@ public class Demineur {
         };
         SwingUtilities.invokeLater(r);
         
-    }
+    }*/
 }
