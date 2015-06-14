@@ -13,10 +13,13 @@ import java.util.Observer;
 
 import demineur.model.GameBoard;
 import demineur.model.Case;
+import demineur.view.FenetrePrincipale;
+import static java.awt.BorderLayout.CENTER;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.border.Border;
 
 /**
@@ -37,6 +40,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
     JMenuItem charger;
     
     public Vue(GameBoard board){
+       
         this.platteau=board;
         
         this.nbMines=board.getMines();
@@ -83,13 +87,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
         platteau.addObserver(this);
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        Vue v = new Vue(new GameBoard(10, 10, 10));
-        v.setVisible(true);
-    }
+
 
     @Override
     @SuppressWarnings("empty-statement")
@@ -99,6 +97,17 @@ public class Vue extends JFrame implements Observer, ActionListener{
         int etat;
         JLabel label;
         String texte="";
+        
+     if(platteau.getCasedecouverte() == 1 && platteau.getJeu() == 1){
+         System.out.println("NOUVELLE PARTIE");
+         int[] choix = platteau.chercheMine();
+         this.setVisible(false);
+         Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
+            v.setVisible(true);
+            v.platteau.reveleCase(choix[0], choix[1]);
+            return;
+     }   
+        
         
         for(int i=0;i<tailleX;i++)
         {
@@ -128,14 +137,14 @@ public class Vue extends JFrame implements Observer, ActionListener{
                             label.setVisible(true);
                         }
                         //cases[i][j].add(new JLabel(label.setText));
-                        cases[i][j].setBackground(Color.GREEN);
+                        cases[i][j].setBackground(Color.GRAY);
                        // cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
                     }    
                 }
                 else if(platteau.getCase(i, j).getEtat()==2)
                 {
-                    //platteau.getCase(i, j).setDrapeau();
-                    cases[i][j].setBackground(Color.red);
+                    cases[i][j].setBackground(Color.RED);
+
                 }
                 else if(platteau.getCase(i, j).getContenu()==0)
                 {
@@ -149,7 +158,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 cases[i][j].repaint();
             }
         }
-        System.out.println(platteau.getJeu());
+        //System.out.println(platteau.getJeu());
         if(platteau.getJeu()!=0){
             findujeu=true;
         };
@@ -172,9 +181,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
              if(boutton == 0){
                     
                     setVisible(false);
-                    //this = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
                     Vue nouvellevue = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
-                    //GameBoard nouvellevue = new GameBoard(this.nbMines, this.tailleX, this.tailleY);
                     this.platteau=nouvellevue.platteau;
                     this.cases=nouvellevue.cases;
                     update(o,arg);

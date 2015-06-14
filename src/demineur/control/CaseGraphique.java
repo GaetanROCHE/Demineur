@@ -32,7 +32,6 @@ public class CaseGraphique extends JPanel {
         id[1]=y;
         this.view=vue;
         setBackground(Color.white);
-        
         initImages();
         icone = new JLabel( images[0] );
         setLayout(new BorderLayout());
@@ -56,16 +55,12 @@ public class CaseGraphique extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent arg0) {
-                System.out.println("bouh");
                 if (arg0.getButton() == 3) {
-                    System.out.println("bah");
                     vue.platteau.getCase(id[0], id[1]).setDrapeau();
                 } else {
-                    System.out.println("ih");
                     if (!(vue.platteau.getCase(id).getEtat()==2))
                     {
                         vue.platteau.reveleCase(id[0], id[1]);
-                        System.out.println("mouh");
                     }
                         
                 }
@@ -108,11 +103,12 @@ public class CaseGraphique extends JPanel {
         }
         if(etat==2){
             remove(icone);
-            icone = new JLabel(images[11]);
+            icone = new JLabel(images[10]);
             setLayout(new BorderLayout());
             add(icone, BorderLayout.CENTER);
-        }
-        
+            icone.setIcon(images[10]);
+            this.add(icone);
+        }      
     }
     
     private void initImages(){
@@ -121,10 +117,10 @@ public class CaseGraphique extends JPanel {
         images[0]=new ImageIcon( "./src/Ressources/batlike.png");
         for(int i=0;i<9;i++)
         {
-            images[i]=new ImageIcon( "./src/Ressources/batlike.png");
-        }  
+            images[i]=new ImageIcon( "./src/demineur/images/batlike.png");
+        }
         images[9]=new ImageIcon( "./src/Ressources/batlike.png");
-        images[10] =  new ImageIcon( "./src/Ressources/icone.png");
+        images[10] =  new ImageIcon( "./src/demineur/images/icone.png");
         images[11] =  new ImageIcon( "./src/Ressources/batlike.png");
     }
     
