@@ -28,41 +28,4 @@ public class Demineur {
         Vue v = new Vue(new GameBoard(10, 10, 10));
         v.setVisible(true);
     }    
-    
-    
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-   /* public static void main(String[] args) {
-
-
-        // TODO code application logic here
-        
-        Runnable r = new Runnable() {
-
-            @Override
-            public void run() {
-                FenetrePrincipale fenetre =
-                        new FenetrePrincipale();
-
-                JFrame f = new JFrame("Demineur");
-                f.add(fenetre.getFenetre());
-                f.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                f.setLocationByPlatform(true);
-
-                // ensures the frame is the minimum size it needs to be
-                // in order display the components within it
-                f.pack();
-                // ensures the minimum size is enforced.
-                f.setMinimumSize(f.getSize());
-                f.setVisible(true);
-                GameBoard Plateau = new GameBoard(10,10,10);
-                System.out.println(Plateau.toString());
-            }
-        };
-        SwingUtilities.invokeLater(r);
-        
-    }*/
 }
