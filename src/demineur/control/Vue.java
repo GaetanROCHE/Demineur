@@ -12,14 +12,9 @@ import java.util.Observable;
 import java.util.Observer;
 
 import demineur.model.GameBoard;
-import demineur.model.Case;
-import demineur.view.FenetrePrincipale;
-import static java.awt.BorderLayout.CENTER;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.border.Border;
 
 /**
@@ -35,9 +30,14 @@ public class Vue extends JFrame implements Observer, ActionListener{
     
     CaseGraphique[][] cases ;
     
+    int choixcouleur;
+    
     JMenuItem nouvellepartie;
     JMenuItem sauvegarder;
     JMenuItem charger;
+    JMenuItem grisrouge;
+    JMenuItem bleucyan;
+    JMenuItem rosemagenta;
     
     public Vue(GameBoard board){
        
@@ -47,23 +47,37 @@ public class Vue extends JFrame implements Observer, ActionListener{
         this.tailleX=board.getTailleX();
         this.tailleY=board.getTailleY();
         
+        this.choixcouleur=1;
+        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Demineur");
         setSize(tailleX*38, tailleY*38 + 30);
         
         JMenuBar barremenu = new JMenuBar();
         JMenu menu = new JMenu("Jeu");
+        JMenu options = new JMenu("Couleurs");
+        
         nouvellepartie = new JMenuItem("Nouvelle Partie");
         nouvellepartie.addActionListener(this);
         sauvegarder = new JMenuItem("Sauvegarder");
         sauvegarder.addActionListener(this);
         charger = new JMenuItem("Charger");
         charger.addActionListener(this);
+        grisrouge = new JMenuItem("Gris et Blanc");
+        grisrouge.addActionListener(this);
+        bleucyan = new JMenuItem("Bleu et Cyan");
+        bleucyan.addActionListener(this);
+        rosemagenta = new JMenuItem("Surprise du chef");
+        rosemagenta.addActionListener(this);
         
         menu.add(nouvellepartie);
         menu.add(sauvegarder);
         menu.add(charger);
+        options.add(grisrouge);
+        options.add(bleucyan);
+        options.add(rosemagenta);
         barremenu.add(menu);
+        barremenu.add(options);
         setJMenuBar(barremenu);
         
         JComponent jc = new JPanel (new GridLayout(tailleY, tailleX));
@@ -115,9 +129,16 @@ public class Vue extends JFrame implements Observer, ActionListener{
             {
                 if(platteau.getCase(i, j).getEtat()==0)
                 {
-                    cases[i][j].setBackground(Color.white);
-                    cases[i][j].setImage(1);
-                   // cases[i][j].setImage(0);
+                    if(choixcouleur == 1){
+                       cases[i][j].setBackground(Color.GRAY);
+                    }
+                    if(choixcouleur == 2){
+                       cases[i][j].setBackground(Color.BLUE); 
+                    }
+                    if(choixcouleur == 3){
+                        cases[i][j].setBackground(Color.MAGENTA); 
+                    }
+                    
                 }
                 else if(platteau.getCase(i, j).getEtat()==1)
                 {
@@ -136,9 +157,16 @@ public class Vue extends JFrame implements Observer, ActionListener{
                             cases[i][j].add(label);
                             label.setVisible(true);
                         }
-                        //cases[i][j].add(new JLabel(label.setText));
-                        cases[i][j].setBackground(Color.GRAY);
-                       // cases[i][j].setValeur(platteau.getCase(i, j).getContenu());
+                        if(choixcouleur == 1){
+                            cases[i][j].setBackground(Color.WHITE);
+                        }
+                        if(choixcouleur == 2){
+                           cases[i][j].setBackground(Color.CYAN); 
+                        }
+                        if(choixcouleur == 3){
+                           cases[i][j].setBackground(Color.PINK); 
+                        }
+                       
                     }    
                 }
                 else if(platteau.getCase(i, j).getEtat()==2)
@@ -218,6 +246,18 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 Logger.getLogger(Vue.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+        }
+        if(e.getSource() == grisrouge){
+            choixcouleur=1;
+            this.update(platteau, this);
+        }
+        if(e.getSource() == bleucyan){
+            choixcouleur=2;
+            this.update(platteau, this);
+        }
+        if(e.getSource() == rosemagenta){
+            choixcouleur=3;
+            this.update(platteau, this);
         }
 
     }
