@@ -159,7 +159,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
             }
         }
         //System.out.println(platteau.getJeu());
-        if(platteau.getJeu()!=0){
+        if(platteau.testVictoire()){
             findujeu=true;
         };
     

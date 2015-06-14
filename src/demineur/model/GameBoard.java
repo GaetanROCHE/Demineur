@@ -127,7 +127,18 @@ public class GameBoard extends Observable{
             this.minesRestantes ++;
         }
         this.callUpdate(); 
-       }        
+       }
+    
+    public boolean testVictoire(){
+        if(this.caseDecouverte == (this.tailleX*this.tailleY - this.nombreMines))
+        {
+            return true;
+        }
+        
+        else{
+            return false;
+        }
+    }
     
 
 
