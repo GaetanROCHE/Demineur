@@ -8,7 +8,6 @@ package demineur;
 
 import demineur.control.Vue;
 import demineur.model.GameBoard;
-import demineur.view.ChessBoardWithColumnsAndRows;
 import demineur.view.FenetrePrincipale;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
