@@ -10,6 +10,7 @@ import demineur.control.Vue;
 import demineur.model.GameBoard;
 import demineur.view.FenetrePrincipale;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 
@@ -25,7 +26,9 @@ public class Demineur {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Vue v = new Vue(new GameBoard(10, 10, 10));
-        v.setVisible(true);
+        
+        Vue.run();
+       // Vue v = new Vue(new GameBoard(10, 10, 10));
+        //v.setVisible(true);
     }    
 }

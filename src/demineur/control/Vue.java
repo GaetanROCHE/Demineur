@@ -35,9 +35,11 @@ public class Vue extends JFrame implements Observer, ActionListener{
     JMenuItem nouvellepartie;
     JMenuItem sauvegarder;
     JMenuItem charger;
+    JMenuItem changerdifficulte;
     JMenuItem grisrouge;
     JMenuItem bleucyan;
     JMenuItem rosemagenta;
+    
     
     public Vue(GameBoard board){
        
@@ -63,6 +65,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
         sauvegarder.addActionListener(this);
         charger = new JMenuItem("Charger");
         charger.addActionListener(this);
+        changerdifficulte = new JMenuItem("Changer la difficulte");
+        changerdifficulte.addActionListener(this);
         grisrouge = new JMenuItem("Gris et Blanc");
         grisrouge.addActionListener(this);
         bleucyan = new JMenuItem("Bleu et Cyan");
@@ -73,6 +77,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
         menu.add(nouvellepartie);
         menu.add(sauvegarder);
         menu.add(charger);
+        menu.add(changerdifficulte);
         options.add(grisrouge);
         options.add(bleucyan);
         options.add(rosemagenta);
@@ -101,6 +106,33 @@ public class Vue extends JFrame implements Observer, ActionListener{
         platteau.addObserver(this);
     }
     
+    public static void run(){
+        String choixdujoueur;
+        int difficulte;
+        String Texte = "Choisissez le mode de difficulté : \n";
+        Texte+= "1 : Mode facile \n";
+        Texte+= "2 : Mode intermediaire \n";
+        Texte+= "3 : Mode difficile";
+        do
+        {
+            choixdujoueur = JOptionPane.showInputDialog(Texte);
+            difficulte = Integer.parseInt(choixdujoueur);
+        }while(difficulte!=1 && difficulte!=2 && difficulte!=3);
+        
+        if(difficulte == 1){
+            Vue v = new Vue(new GameBoard(10, 10, 10));
+            v.setVisible(true);    
+        }
+        if(difficulte == 2){
+            Vue v = new Vue(new GameBoard(16, 16, 40));
+             v.setVisible(true);
+        }
+        if(difficulte == 3){
+            Vue v = new Vue(new GameBoard(16, 30, 99));
+             v.setVisible(true);
+        }
+    }
+    
 
 
     @Override
@@ -121,8 +153,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
             v.platteau.reveleCase(choix[0], choix[1]);
             return;
      }   
-        
-        
+
         for(int i=0;i<tailleX;i++)
         {
             for(int j=0;j<tailleY;j++)
@@ -209,7 +240,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
              if(boutton == 0){
                     
                     setVisible(false);
-                    Vue nouvellevue = new Vue(new GameBoard(this.nbMines, this.tailleX, this.tailleY));
+                    Vue nouvellevue = new Vue(new GameBoard(this.tailleX, this.tailleY, this.nbMines));
                     this.platteau=nouvellevue.platteau;
                     this.cases=nouvellevue.cases;
                     update(o,arg);
@@ -227,7 +258,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
         
         if(e.getSource() == nouvellepartie){
             this.setVisible(false);
-            Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
+            Vue v = new Vue(new GameBoard(tailleX, tailleY, nbMines));
             v.setVisible(true);
         }
         if(e.getSource() == sauvegarder){
@@ -246,6 +277,10 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 Logger.getLogger(Vue.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+        }
+        if(e.getSource() == changerdifficulte){
+            this.setVisible(false);
+            run();
         }
         if(e.getSource() == grisrouge){
             choixcouleur=1;
