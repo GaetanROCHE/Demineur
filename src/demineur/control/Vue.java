@@ -121,16 +121,20 @@ public class Vue extends JFrame implements Observer, ActionListener{
         
         if(difficulte == 1){
             Vue v = new Vue(new GameBoard(10, 10, 10));
-            v.setVisible(true);    
+            v.setVisible(true);
+            v.update(v.platteau, v);
         }
         if(difficulte == 2){
             Vue v = new Vue(new GameBoard(16, 16, 40));
              v.setVisible(true);
+             v.update(v.platteau, v);
         }
         if(difficulte == 3){
             Vue v = new Vue(new GameBoard(16, 30, 99));
              v.setVisible(true);
+             v.update(v.platteau, v);
         }
+        
     }
     
 
@@ -142,10 +146,9 @@ public class Vue extends JFrame implements Observer, ActionListener{
         boolean defaite = false;
         int etat;
         JLabel label;
-        String texte="";
+        String texte;
         
      if(platteau.getCasedecouverte() == 1 && platteau.getJeu() == 1){
-         System.out.println("NOUVELLE PARTIE");
          int[] choix = platteau.chercheMine();
          this.setVisible(false);
          Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
@@ -184,7 +187,6 @@ public class Vue extends JFrame implements Observer, ActionListener{
                         if(platteau.getCase(i, j).getContenu()!=0){
                             texte= Integer.toString(platteau.getCase(i, j).getContenu());
                             label= new JLabel(texte, JLabel.CENTER);
-                            //label.add(cases[i][j]).setVisible(true);
                             cases[i][j].add(label);
                             label.setVisible(true);
                         }
@@ -197,13 +199,11 @@ public class Vue extends JFrame implements Observer, ActionListener{
                         if(choixcouleur == 3){
                            cases[i][j].setBackground(Color.PINK); 
                         }
-                       
                     }    
                 }
                 else if(platteau.getCase(i, j).getEtat()==2)
                 {
                     cases[i][j].setBackground(Color.RED);
-
                 }
                 else if(platteau.getCase(i, j).getContenu()==0)
                 {
@@ -217,10 +217,14 @@ public class Vue extends JFrame implements Observer, ActionListener{
                 cases[i][j].repaint();
             }
         }
-        //System.out.println(platteau.getJeu());
         if(platteau.testVictoire()){
             findujeu=true;
-        };
+        }
+        else{
+            if(!(defaite)){
+                findujeu=false;
+            }
+        }
     
         if(findujeu){
             findujeu=false;
