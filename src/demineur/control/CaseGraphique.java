@@ -43,20 +43,18 @@ public class CaseGraphique extends JPanel {
             public void mouseEntered(MouseEvent arg0) {
                 super.mouseClicked(arg0);
                 if (vue.platteau.getCase(id).getEtat()==0){}
-                    //setBackground(Color.BLACK);
             }
 
             @Override
             public void mouseExited(MouseEvent arg0) {
                 super.mouseExited(arg0);
                 if (vue.platteau.getCase(id).getEtat()!=0);
-                   // setBackground(Color.WHITE);
             }
 
             @Override
             public void mousePressed(MouseEvent arg0) {
                 if (arg0.getButton() == 3) {
-                    vue.platteau.getCase(id[0], id[1]).setDrapeau();
+                    vue.platteau.poseDrapeau(id[0], id[1]);
                 } else {
                     if (!(vue.platteau.getCase(id).getEtat()==2))
                     {
@@ -65,7 +63,6 @@ public class CaseGraphique extends JPanel {
                         
                 }
             }
-
         });
     }
     
@@ -114,14 +111,14 @@ public class CaseGraphique extends JPanel {
     private void initImages(){
         images = new ImageIcon[12];
         
-        images[0]=new ImageIcon( "./src/Ressources/batlike.png");
+        images[0]=new ImageIcon( "./src/Ressources/icone2.png");
         for(int i=0;i<9;i++)
         {
-            images[i]=new ImageIcon( "./src/demineur/images/batlike.png");
+            images[i]=new ImageIcon( "./src/demineur/images/icone2.png");
         }
-        images[9]=new ImageIcon( "./src/Ressources/batlike.png");
+        images[9]=new ImageIcon( "./src/Ressources/icone2.png");
         images[10] =  new ImageIcon( "./src/demineur/images/icone.png");
-        images[11] =  new ImageIcon( "./src/Ressources/batlike.png");
+        images[11] =  new ImageIcon( "./src/Ressources/icone2.png");
     }
     
     

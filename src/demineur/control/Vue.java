@@ -39,6 +39,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
     JMenuItem grisrouge;
     JMenuItem bleucyan;
     JMenuItem rosemagenta;
+    JMenuItem minesrestantes;
+    JMenuItem minestrouvable;
     
     
     public Vue(GameBoard board){
@@ -58,6 +60,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
         JMenuBar barremenu = new JMenuBar();
         JMenu menu = new JMenu("Jeu");
         JMenu options = new JMenu("Couleurs");
+        JMenu avancement = new JMenu("Avancement");
         
         nouvellepartie = new JMenuItem("Nouvelle Partie");
         nouvellepartie.addActionListener(this);
@@ -73,6 +76,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
         bleucyan.addActionListener(this);
         rosemagenta = new JMenuItem("Surprise du chef");
         rosemagenta.addActionListener(this);
+        minesrestantes = new JMenuItem("Mines restantes : " + Integer.toString(platteau.getMines()));
+        minesrestantes.addActionListener(this);
         
         menu.add(nouvellepartie);
         menu.add(sauvegarder);
@@ -81,8 +86,10 @@ public class Vue extends JFrame implements Observer, ActionListener{
         options.add(grisrouge);
         options.add(bleucyan);
         options.add(rosemagenta);
+        avancement.add(minesrestantes);
         barremenu.add(menu);
         barremenu.add(options);
+        barremenu.add(minesrestantes);
         setJMenuBar(barremenu);
         
         JComponent jc = new JPanel (new GridLayout(tailleY, tailleX));
@@ -126,8 +133,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
         }
         if(difficulte == 2){
             Vue v = new Vue(new GameBoard(16, 16, 40));
-             v.setVisible(true);
-             v.update(v.platteau, v);
+            v.setVisible(true);
+            v.update(v.platteau, v);
         }
         if(difficulte == 3){
             Vue v = new Vue(new GameBoard(16, 30, 99));
@@ -147,15 +154,20 @@ public class Vue extends JFrame implements Observer, ActionListener{
         int etat;
         JLabel label;
         String texte;
+        String mines = ("Mines restantes : " + Integer.toString(platteau.getMines()));
         
-     if(platteau.getCasedecouverte() == 1 && platteau.getJeu() == 1){
-         int[] choix = platteau.chercheMine();
-         this.setVisible(false);
-         Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
+
+        minesrestantes.setText(mines);
+
+
+        if(platteau.getCasedecouverte() == 1 && platteau.getJeu() == 1){
+            int[] choix = platteau.chercheMine();
+            this.setVisible(false);
+            Vue v = new Vue(new GameBoard(nbMines, tailleX, tailleY));
             v.setVisible(true);
             v.platteau.reveleCase(choix[0], choix[1]);
             return;
-     }   
+        }   
 
         for(int i=0;i<tailleX;i++)
         {
@@ -171,8 +183,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
                     }
                     if(choixcouleur == 3){
                         cases[i][j].setBackground(Color.MAGENTA); 
-                    }
-                    
+                    } 
                 }
                 else if(platteau.getCase(i, j).getEtat()==1)
                 {
@@ -228,34 +239,34 @@ public class Vue extends JFrame implements Observer, ActionListener{
     
         if(findujeu){
             findujeu=false;
-             Object[] choix = {"Rejouer", "Arreter"};
-             String textefin;
-             if(defaite){
-                 textefin="Dommage, c'est perdu";
-             }
-             else{
-                 textefin ="Felicitations, c'est gagné";
-             }
+            Object[] choix = {"Rejouer", "Arreter"};
+            String textefin;
+            if(defaite){
+                textefin="Dommage, c'est perdu";
+            }
+            else{
+                textefin ="Felicitations, c'est gagné";
+            }
              
-                 defaite=false;
-             int boutton = JOptionPane.showOptionDialog(this, textefin, "Jeu fini", 
+            defaite=false;
+            int boutton = JOptionPane.showOptionDialog(this, textefin, "Jeu fini", 
                      JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
                      
-             if(boutton == 0){
+            if(boutton == 0){
                     
-                    setVisible(false);
-                    Vue nouvellevue = new Vue(new GameBoard(this.tailleX, this.tailleY, this.nbMines));
-                    this.platteau=nouvellevue.platteau;
-                    this.cases=nouvellevue.cases;
-                    update(o,arg);
-                    
-                    nouvellevue.setVisible(true);
-             }
-             if(boutton == 1){
-                 System.exit(0);
-             }           
+                setVisible(false);
+                Vue nouvellevue = new Vue(new GameBoard(this.tailleX, this.tailleY, this.nbMines));
+                this.platteau=nouvellevue.platteau;
+                this.cases=nouvellevue.cases;
+                update(o,arg);
+
+                nouvellevue.setVisible(true);
+            }
+            if(boutton == 1){
+                System.exit(0);
+            }           
         }   
-  }    
+    }    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -271,7 +282,6 @@ public class Vue extends JFrame implements Observer, ActionListener{
         }
         if(e.getSource() == charger){
             this.setVisible(false);
-            
             try {
                 Vue v;
                 v = new Vue(new GameBoard("sauvegarde.txt"));
@@ -280,7 +290,6 @@ public class Vue extends JFrame implements Observer, ActionListener{
             } catch (IOException ex) {
                 Logger.getLogger(Vue.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
         if(e.getSource() == changerdifficulte){
             this.setVisible(false);
@@ -298,9 +307,5 @@ public class Vue extends JFrame implements Observer, ActionListener{
             choixcouleur=3;
             this.update(platteau, this);
         }
-
-    }
-    
-    
-    
+    }  
 }

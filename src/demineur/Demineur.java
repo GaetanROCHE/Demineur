@@ -28,7 +28,5 @@ public class Demineur {
     public static void main(String[] args) {
         
         Vue.run();
-       // Vue v = new Vue(new GameBoard(10, 10, 10));
-        //v.setVisible(true);
     }    
 }
