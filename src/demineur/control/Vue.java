@@ -137,7 +137,7 @@ public class Vue extends JFrame implements Observer, ActionListener{
             v.update(v.platteau, v);
         }
         if(difficulte == 3){
-            Vue v = new Vue(new GameBoard(16, 30, 99));
+            Vue v = new Vue(new GameBoard(30, 30, 99));
             v.setVisible(true);
             v.update(v.platteau, v);
         }
