@@ -138,8 +138,8 @@ public class Vue extends JFrame implements Observer, ActionListener{
         }
         if(difficulte == 3){
             Vue v = new Vue(new GameBoard(16, 30, 99));
-             v.setVisible(true);
-             v.update(v.platteau, v);
+            v.setVisible(true);
+            v.update(v.platteau, v);
         }
         
     }
@@ -250,10 +250,10 @@ public class Vue extends JFrame implements Observer, ActionListener{
              
             defaite=false;
             int boutton = JOptionPane.showOptionDialog(this, textefin, "Jeu fini", 
-                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
-                     
-            if(boutton == 0){
-                    
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, choix, choix[1]);
+                             
+            if(boutton == 0){   
+
                 setVisible(false);
                 Vue nouvellevue = new Vue(new GameBoard(this.tailleX, this.tailleY, this.nbMines));
                 this.platteau=nouvellevue.platteau;
